@@ -3,21 +3,11 @@
 #### Use your stash url for the 
 url=localhost:7990
 
-if [ "${year_num}" == "" ] ; then
-year=`date +%y`
-else
-year=${year_num}
-fi 
-
-if [ "${month_num}" == "" ] ; then
-month=`date +%m`
-else
-month=${month_num}
-fi 
+year=${1}
+month=${2}
 
 
-
-STASH_API="curl -u ${user_1}:${password_2} ${url}/rest/api/1.0/projects/"
+STASH_API="curl -u ${user}:${password} ${url}/rest/api/1.0/projects/"
 ${STASH_API} | python -mjson.tool > log.txt
 PROJ_COUNT=`grep -c key log.txt`
 #File which has all the details of the STASH stats
@@ -32,14 +22,14 @@ echo "\n"
 REPO_COUNT=0
 for i in ${PROJ_NAME[@]};
 do
-REPO_API="curl -u ${user_1}:${password_2} ${url}/rest/api/1.0/projects/$i/repos/"
+REPO_API="curl -u ${user}:${password} ${url}/rest/api/1.0/projects/$i/repos/"
 ${REPO_API} | python -mjson.tool > ${i}.txt
 REPO_NAME=`cat ${i}.txt | grep -i slug | awk '{print $2}' | cut -f2 | sed "s/\"//g" | sed "s/\,//g"`
 
 #EACH PROJECT DETAILS WITH REPOSITORY NAMES AND TOTAL COUNT
 for j in ${REPO_NAME[@]};
 do 
-REPO_DETAILS="curl -u ${user_1}:${password_2} ${url}/rest/audit/1.0/projects/${i}/repos/${j}/events"
+REPO_DETAILS="curl -u ${user}:${password} ${url}/rest/audit/1.0/projects/${i}/repos/${j}/events"
 ${REPO_DETAILS} | python -mjson.tool > ${j}.txt
 REPO_CREATION_TIME=`cat ${j}.txt | grep -i timestamp | awk '{print $2}' | cut -f2 | sed "s/\"//g" | sed "s/\,//g"`
 
