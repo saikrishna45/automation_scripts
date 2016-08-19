@@ -1,3 +1,5 @@
+#### This script is the roll 7 game code which works on terminal level
+
 import random
 
 mypot = input("Please enter the amount of money you want in the pot: ")
