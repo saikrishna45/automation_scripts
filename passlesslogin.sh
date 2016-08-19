@@ -7,7 +7,7 @@
 ## It takes the remote user name as first positional parameter for the script.
 ## example: sh passlesslogin.sh user
 ## This would need sshpass to be installed on your machine. If you are using mac then use brew to take care of it. 
-##
+## This script is only for unix kernel based machines.
 ####
 user=${1}
 for ip in `cat hosts`
