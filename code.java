@@ -1,7 +1,7 @@
 public class TheMotivator {
 	public void feedback(int score) {
 		if (score == 100)
-			System.out.println("you sure are awesome. Trust me");
+			System.out.println("are you awesome?");
 		else if (score > 90)
 			System.out.println("That's great");
 		else if (score > 60)
